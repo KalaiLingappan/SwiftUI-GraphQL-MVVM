@@ -1,0 +1,78 @@
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """Deferred when true or undefined."""
+  if: Boolean
+
+  """Unique name"""
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+""""""
+type Query {
+  """Get a user by id"""
+  user(
+    """The id of the user"""
+    id: String
+  ): User
+
+  """Get all users"""
+  users: [User]
+
+  """Get all todos"""
+  todos: [Todo]
+}
+
+""""""
+input UpdateTodoInput {
+  """"""
+  id: String
+
+  """"""
+  description: String
+
+  """"""
+  done: Boolean
+}
+
+""""""
+type User {
+  """"""
+  id: String
+
+  """"""
+  name: String
+
+  """"""
+  email: String
+
+  """"""
+  todos: [Todo]
+}
+
+""""""
+type Todo {
+  """"""
+  id: String
+
+  """"""
+  description: String
+
+  """"""
+  done: Boolean
+}
+
+""""""
+type Mutation {
+  """"""
+  updateTodo(
+    """Todo input"""
+    input: UpdateTodoInput!
+  ): Todo
+}
